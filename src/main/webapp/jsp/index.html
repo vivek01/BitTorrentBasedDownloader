@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+      <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Peer CDS</title>
+    <script src="../js/jquery-2.0.0.min.js"></script>
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    
+
+	<!-- BOOTSTRAP STYLES-->
+    <link href="../css/bootstrap.css" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+    <link href="../css/font-awesome.css" rel="stylesheet" />
+     <!-- MORRIS CHART STYLES-->
+        <!-- CUSTOM STYLES-->
+    <link href="../css/custom.css" rel="stylesheet" />
+     <!-- GOOGLE FONTS-->
+   <script src="../js/bootstrap.min.js"></script>  
+  <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.js"></script>
+   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular-resource.js"></script>
+   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular-route.js"></script> -->
+
+   
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+        	<div id="create_btn" style="display: inline">
+        	<!-- <button class="btn btn-danger" type="file" id="create_torrent">Create Torrent <i class="fa fa-plus-circle"></i></button> -->
+        	<!-- <input type="file" title="Search for a file to add" id="create_file"> -->
+        	<span class="btn btn-success btn-file" id="default-path">
+    			<i class="fa fa-cogs"></i> Set Default Path 
+			</span>
+			
+        	<span class="btn btn-danger btn-file" id="share-torrent">
+    			<i class="fa fa-share-square"></i> Share Torrent<input type="file" title="Search for a file to add" id=create_torrent value="">
+			</span>
+			
+			<span class="btn btn-default btn-file" id="multi-torrent">
+    			<i class="fa fa-share-square"></i> Multi-File torrent<input type="file" id="file_input" webkitdirectory >
+			</span>
+			
+			<span class="btn btn-info btn-file" id="download-torrent">
+				<!-- Multi Torrent <input type="file" title="Search for a file to add" id="create_torrent" webkitdirectory="" directory=""> -->
+				<i class="fa fa-download"></i> Download Torrent <input type="file" title="Search for a file to add" id=download_torrent value="">
+        	</span>
+        	</div>
+        	
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/peercds/service/view">Peer Share</a> 
+            </div>
+        </nav>   
+           <!-- /. NAV TOP  -->
+            <nav class="navbar-default navbar-side" role="navigation" id="navbar" >
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu" style="height:100%">
+						<li class="text-center">
+	                    	<img src="../images/find_user.png" class="user-image img-responsive"/>
+						</li>
+	                    <li id="all_files">
+	                        <a class="active-menu" ><i class="fa fa-archive fa-3x"></i> All</a>
+	                    </li>
+	                    <li id="downloading_files">
+	                        <a status="downloading"><i class="fa fa-download fa-3x"></i> Downloading</a>
+	                    </li>
+	                    <li id="seeding_files">
+	                        <a><i class="fa fa-upload fa-3x"></i> Seeding</a>
+	                    </li>
+                    </div>
+                </ul>
+               
+            </div>
+            
+        </nav>  
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row" id="app-dashboard">
+                    <div class="col-md-12">
+                     	<h2>Application Dashboard</h2>   
+                    </div>
+                
+             <div class="col-md-3 col-sm-6 col-xs-4" id="Resume">           
+				<div class="panel panel-back noti-box">
+	                <span class="icon-box bg-color-green set-icon">
+	                    <i class="fa fa-play"></i>
+	                </span>
+	                <div class="text-box" >
+	                    <p class="main-text">Resume</p>
+	                    <!-- <p class="text-muted">Messages</p> -->
+	                </div>
+	             </div>
+		     </div>
+             
+             
+             
+             <div class="col-md-3 col-sm-6 col-xs-4" id="Pause">           
+				<div class="panel panel-back noti-box">
+	                <span class="icon-box bg-color-brown set-icon">
+	                    <i class="fa fa-pause"></i>
+	                </span>
+	                <div class="text-box" >
+	                    <p class="main-text">Pause</p>
+	                    <!-- <p class="text-muted">Notifications</p> -->
+	                </div>
+	             </div>
+		     </div>
+		     
+            <div class="col-md-3 col-sm-6 col-xs-4" id="Delete">           
+				<div class="panel panel-back noti-box">
+	                <span class="icon-box bg-color-red set-icon">
+	                    <i class="fa fa-trash-o"></i>
+	                </span>
+	                <div class="text-box" >
+	                    <p class="main-text">Delete</p>
+	                    <!-- <p class="text-muted">Pending</p> -->
+	                </div>
+	             </div>
+		     </div>
+			</div>
+                 <!-- /. ROW  -->
+                <hr />                            
+        	
+                    
+           <div class="col-md-9 col-sm-12 col-xs-12">
+            <div class="panel panel-default" id="torrent-list"> 
+                    <div class="panel-heading">
+                       Torrent List
+                    </div>
+            <div class="panel-body">
+                <div class="table-responsive" id="torrent_table">
+             <table class="table table-striped">
+				<thead>
+					<tr>
+						<th>SNO</th>
+						<th>File Name</th>
+						<th>Status</th>
+						<th>Progress</th>
+						<!-- <th>Upload</th>
+						<th>Download</th> -->
+						<!-- <th>Peers</th>
+						<th>Seeds</th> -->
+						<th>ETA</th>
+						<th>Size</th>
+					</tr>
+				</thead>
+				<tbody id="torrent-rows">
+					
+				</tbody>
+			</table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    </div>
+                    
+                  <div class="col-md-9 col-sm-12 col-xs-12" id="torrent-info">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Information 
+                        </div>
+                        <div class="panel-body" id="torrent-info-body">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#home" data-toggle="tab">Current Stats</a></li>
+                            </ul>
+
+                            <div class="tab-content" id="info-tabs">
+                                <div class="tab-pane fade active in" id="home">
+                                   <div class="col-md-3">
+                                   	<div class="info"><b>Status:</b><span id="status"></span></div>
+                                   </div>
+                                   <div class="col-md-3">
+	                                   	<div class="info"><b>Remaining:</b><span id="remaining_time"></span></div>
+	                                    <div class="info"><b>Time Elapsed:</b><span id="time_elapsed"></span></div>
+                                   </div>
+                                   <div class="col-md-3">
+	                                   	<div class="info"><b>Peers:</b><span id="peers_count"></span></div> 
+
+	                                    <div class="info"><b>Seeds:</b><span id="seeds_count"></span></div> 
+                                   </div>
+                                   
+									<div class="col-md-3">
+	                                   	<div class="info"><b>Upload Speed:</b><span id="upload_speed"></span></div> 
+
+	                                    <div class="info"><b>Download Speed:</b><span id="download_speed"></span></div> 
+                                   </div>
+                                   
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    
+                    
+                </div>
+                 <!-- /. ROW  -->
+                 
+                 <div class="row">
+                
+
+            	</div>
+                   
+                 <!-- /. ROW  -->           
+    			</div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+        
+       
+       <!-- Set Default Path -->
+       
+        <div class="modal fade" role="dialog" id="default-path-modal">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-header" id="modal-header">
+					Default Path
+				</div>
+				<div class="modal-content">
+					<div class="modal-body">
+						<b>Paste your default path</b>
+						<input type="text" class="form-control" placeholder="" id="resource-url" autofocus="">
+					</div>
+				<div class="modal-footer" id="modal-submit">
+					<button class="btn btn-success" id="resource-submit" data-dismiss="modal">Submit</button>
+					<button class="btn btn-danger"  data-dismiss="modal">Cancel</button>
+				</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- Set Tracker Url -->
+       
+        <div class="modal fade" role="dialog" id="tracker_url_modal">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-header" id="modal-header">
+					Default Path
+				</div>
+				<div class="modal-content">
+					<div class="modal-body">
+						<b>Enter Tracker Url</b>
+						<input type="text" class="form-control" placeholder="" id="tracker_url" autofocus="">
+					</div>
+				<div class="modal-footer" id="modal-submit">
+					<button class="btn btn-success" id="url-submit" data-dismiss="modal">Submit</button>
+					<button class="btn btn-danger"  data-dismiss="modal">Cancel</button>
+				</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Select File or Folder Upload -->
+		<!-- <div class="modal fade" role="dialog" id="upload_torrent">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-header" id="alert-modal-header">
+					<b>Select File/Folder</b>
+				</div>
+				<div class="modal-content">
+					<div class="modal-body">
+						<span class="btn btn-danger btn-file">
+    						<i class="fa fa-share-square"></i> Upload File<input type="file" title="Search for a file to add" id=create_torrent value="">
+						</span>
+						
+						<input type="file" id="file_input" webkitdirectory >
+						<ul id="dir-tree"></ul>
+				</div>
+			</div>
+		</div> -->
+		
+		
+		<!-- Common Alert Modal -->
+		<div class="modal fade" role="dialog" id="common-alert-modal">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-header" id="alert-modal-header">
+					<b>Notification</b>
+				</div>
+				<div class="modal-content">
+					<div class="modal-body">
+						<div id="message"></div>
+					</div>
+				<div class="modal-footer" id="modal-submit">
+					<button class="btn btn-success"  data-dismiss="modal">Ok</button>
+				</div>
+				</div>
+			</div>
+		</div>
+	<div id="invisible">
+		<ul id="dir-tree"></ul>
+	</div>	
+		
+    <script src="../js/api.js"></script>
+	<script src="../js/peer.js"></script>
+	<script src="../js/revoke.js"></script>
+	<script src="../js/fs.js"></script>
+</body>
+</html>

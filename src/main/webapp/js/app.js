@@ -1,0 +1,1 @@
+angular.module('peercds',['ngRoute','ngResource','peercds.routes','peercds.controllers']);
